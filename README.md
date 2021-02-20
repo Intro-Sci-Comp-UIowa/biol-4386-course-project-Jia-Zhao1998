@@ -29,7 +29,7 @@ The expected figure would look like this. I plan to produce similar figures to c
 
 x axis is genomic coordinates of *S. cerevisiae PHO5*. Red triangles stands for high affinity motifs CACGTG, while blue circles represent low affinity motifs, which are 1-bp off motifs (i.e. CACTTG). The transparency is the conservity of motifs. Less transparent means more conserve. y axis measures the nucleosome occupancy. Higer y value means the higher nucleosome occupancy. The non-consensus motif (blue circle at -400) corresponses to a low nucleosome occupancy; in contrast, the red triangle (consensus motif) is under a nucleosome occupancy peak. This indicates this consensus motif is covered by a nucleosome. 
 ## Materials and Methods
-###Data
+### Data
 Data|Citation|Purpose
 -----|------|--------
 Nucleosome Occupancy|[Zhou & O'Shea 2011](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3127084/)|To get the nucleosome occupany data; wig file through the [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM730535) datasets or raw [FASTQ](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA141451&o=acc_s%3Aa) files through the SRA Run selector
