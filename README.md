@@ -1,7 +1,6 @@
 # Analyze Transcription Factor Pho4 Binding Sites and Nucleosome Occupancy in _Saccharomyces cerevisiae_
 This is for the course BIOL:4386: Intro to scientific computing in Spring 2021. This repository aims at following up C16 Nucleosome Occupancy Project (Bin He Lab) and adapted from Bin He's repository [C016-Pho4-binding_difference.](https://github.com/binhe-lab/C016-Pho4-binding-difference) 
 
-> HB comment, delete after you read it: in technical writing, we typically don't use bold font to highlight things, unlike in grant writing
 
 ## Introduction/Background
 *Sacchromyces cerevisiae* or *S. cerevisiae*, the baker's yeast, is closely related to the second-most common yeast pathogen *Candida glabrata* or *C. glabrata*. More than 90% of their genes are 1-to-1 orthologs and yet the two species occupy different ecological niches: *S. cerevisiae* is primarily associated with plants and soil, and has been domesticated by human to ferment and leven food. While _C. glabrata_ is also found in soil and on plants, what distinguishes it from the former is its ability to colonize human hosts and cause infections in patients whose immune system is compromised. One of the key challenges for _C. glabrata_ to survive in the host environment is to adapt to the unique patterns of stress, e.g. host immune cell attacks. Given the similarity in their gene content, we hypothesize that rewiring of the stress response networks play a major role in this adaptation. To better understand how gene regulatory networks for stress responses evolve, we study the phosphate starvation stress (PHO) response, whose regulation has been well studied in _S. cerevisiae_, allowing us to dissect changes in its structure and the functional consequences in _C. glabrata_.
@@ -37,16 +36,7 @@ Binding sites of Pho4|[He et al 2017](https://elifesciences.org/articles/25157)|
 Genome Sequence|SGD Website|the genome coordinates of the above table is based on S. cerevisiae genome R64-2-1, which is based on genome sequences of R64-1-1
 
 ### Analysis
-(Need more advice)
-
-1. Mapping Promoter position as the X-axis
-2. Using RNA-seq data to produce nucleosome occupancy data from FAFSA file (see data). Use both high Pi (starting state before Pho4 takes effects) and low Pi conditions. Mapping the nucleosome occupancy data
-3. Finding and mapping Motif location. 
-4. (Optional) Motif conservation within the sensu stricto species (the solid vs light shade in the PHO5 figure)
-
-> HB comment (plan backwards)
-> 
-> 1. Our end goal is to plot nucleosome occupancy for all 115 promoters that CgPho4 binds to in _S. cerevisiae_ and annotate the locations of the consensus motif(s) relative to the occupancy.
-> 2. To achieve that, we need to have the nucleosome occupancy values and the binding motif locations mapped to the same genome coordinates.
-> 3. Binding motif coordinates can be easily calculated by a pattern matching script in Python or R.
-> 4. Nucleosome occupancy values need to be computed from the MNase-seq data. This would involve downloading the fastq files, mapping to the _S. cerevisiae_ genome and computing the normalized occupancy at each genomic position.
+1. Our end goal is to plot nucleosome occupancy for all 115 promoters that CgPho4 binds to in _S. cerevisiae_ and annotate the locations of the consensus motif(s) relative to the occupancy.
+2. To achieve that, we need to have the nucleosome occupancy values and the binding motif locations mapped to the same genome coordinates.
+3. Binding motif coordinates can be easily calculated by a pattern matching script in Python or R.
+4. Nucleosome occupancy values need to be computed from the MNase-seq data. This would involve downloading the fastq files, mapping to the _S. cerevisiae_ genome and computing the normalized occupancy at each genomic position.
