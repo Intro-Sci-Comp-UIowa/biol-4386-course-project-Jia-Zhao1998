@@ -19,5 +19,12 @@ BAM files were imported into R Studio (RStudio Team, 2015) using GenomicAlignmen
 bedgraph files were generated from genome coverage files using rtracklayer (Lawrence et al. 2009).
 Genome_build: SacCer3
 Supplementary_files_format_and_content: bedGraph
-
+## GCF_000146045.2_R64_genomic.fna.gz
+- Source: NCBI
+- Strain: S288C
+- Purpose: Genome sequence, R64, SacCer3
+## GCF_000146045.2_R64_genomic.gff.gz
+- Source: NCBI
+- Strain: S288C
+- Purpose: Genome sequence annotation, R64, SacCer3
 
