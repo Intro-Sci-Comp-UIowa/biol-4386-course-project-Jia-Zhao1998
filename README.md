@@ -31,7 +31,8 @@ The expected figure would look like this. I plan to produce similar figures to c
 
 Data|Citation|Purpose
 -----|------|--------
-Nucleosome Occupancy|[Zhou & O'Shea 2011](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3127084/)|To get the nucleosome occupany data; wig file through the [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM730535) datasets or raw [FASTQ](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA141451&o=acc_s%3Aa) files through the SRA Run selector
+Nucleosome Occupancy No Pi|[Zhou & O'Shea 2011](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3127084/)|To get the nucleosome occupany No Pi data; wig file through the [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM730535) datasets or raw [FASTQ](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA141451&o=acc_s%3Aa) files through the SRA Run selector
+Nucleosome Occupancy High Pi|[Oberbeckmann, 2019](https://pubmed.ncbi.nlm.nih.gov/31694866/)|To get the nucleosome occupancy High Pi data; BedGraph file from [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM4193057) datasets or raw [FASTQ](https://www.ncbi.nlm.nih.gov/sra?term=SRX7217819)
 Binding sites of Pho4|[He et al 2017](https://elifesciences.org/articles/25157)| 115 sites for CgPho4; 74 sites for ScPho4
 Genome Sequence|SGD Website|the genome coordinates of the above table is based on S. cerevisiae genome R64-2-1, which is based on genome sequences of R64-1-1
 
