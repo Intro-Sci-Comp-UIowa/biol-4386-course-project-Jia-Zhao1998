@@ -40,7 +40,11 @@ Binding sites of Pho4|[He et al 2017](https://elifesciences.org/articles/25157)|
 Genome Sequence and Annotation|[NCBI Website](https://www.ncbi.nlm.nih.gov/genome/15)|the genome is based on S. cerevisiae genome version R64
 
 ### Methods
-1. Our end goal is to plot nucleosome occupancy for all 115 promoters that CgPho4 binds to in _S. cerevisiae_ and annotate the locations of the consensus motif(s) relative to the occupancy.
-2. To achieve that, we need to have the nucleosome occupancy values and the binding motif locations mapped to the same genome coordinates.
-3. Binding motif coordinates can be easily calculated by a pattern matching script in Python or R.
-4. Nucleosome occupancy values need to be computed from the MNase-seq data. This would involve downloading the fastq files, mapping to the _S. cerevisiae_ genome and computing the normalized occupancy at each genomic position.
+The end goal is to plot nucleosome occupancy for all 115 promoters that CgPho4 binds to in _S. cerevisiae_ and annotate the locations of the consensus motif(s) relative to the occupancy. To achieve that, we need to have the nucleosome occupancy values and the binding motif locations mapped to the same genome coordinates.
+
+1. Deal with y axis. Nucleosome occupancy values in No Pi and High Pi can be taken directly from WIG file and BedGraph file from Xu and Oberbeckmann, respectively. These two files include the information about the genomic position and the nucleosome occupancy score in integer format. Therefore, the nucleosome occupancy information could be processes by terminal or R. Another way of producing the nucleosome occupancy data is to map the raw reads into genomic sequence and count the reads as an output for nuleosome occupancy. This would involve downloading the fastq files, mapping to the _S. cerevisiae_ genome (Not _C. glabrata_ genome because the binding sites from He are identified in _S. cerevisiae_ background) and computing the normalized occupancy at each genomic position.
+
+2. Deal with x axis. To construct the full information of x axis comparable to Fig 2, I need the information of genomic postion, gene annotation, and binding motifs. Data about genomic position and gene annotation can be downloaded from NCBI website. Binding motif coordinates can be (not) easily calculated by a pattern matching script in Python (I wrote one script last summer which uses any DNA sequence as input and binding site locations and motif information as output. The result will be a csv file that contain the motif and its information of coordinates).
+
+### Reflections
+I am also thinking about write a script which enables an easy search and comparison between Hi Pi and No Pi nucleosome occupancy for every binding site, but I don't know how to solve this problem and how difficult it is. If there are some useful resources, I will appreciate it if you could let me know. Another HUGE concern in if the Nucleosome occupancy in High Pi dataset is good to use. Could you double check for me? Thank you! 
