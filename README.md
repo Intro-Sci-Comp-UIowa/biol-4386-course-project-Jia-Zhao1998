@@ -23,7 +23,11 @@ The expected figure would look like this. I plan to produce similar figures to c
 
 ![](https://raw.githubusercontent.com/binhe-lab/C016-Pho4-binding-difference/master/docs/images/Lam_et_al_2008_fig_2a.png)
 
-**Figure 2. Nucleosome occupancy at the _PHO5_ promoter.** X axis is genomic coordinates of *S. cerevisiae PHO5*. Red triangles stand for high affinity motifs CACGTG, while blue circles represent low affinity motifs, which are 1-bp off motifs (i.e. CACGTT). Solid colors (blue and red) indicate that the motif sequences are conserved in closely related species, while sesmi-transparent colors indicate non-conserved motifs. The Y axis measures nucleosome occupancy with normalized qPCR fold changes. Higher Y values correspond to higher nucleosome occupancy. Notice that the non-consensus motif (blue circle at -400) has a low nucleosome occupancy while the consensus (red triangle at -250) site is nucleosome occluded.
+**Figure 2. Nucleosome occupancy at the _PHO5_ promoter.** X axis is genomic coordinates of *S. cerevisiae PHO5* with respect to translation start (ATG = 1). Red triangles stand for high affinity motifs CACGTG, while blue circles represent low affinity motifs, which are 1-bp off motifs (i.e. CACGTT). Solid colors (blue and red) indicate that the motif sequences are conserved in closely related species, while sesmi-transparent colors indicate non-conserved motifs. The Y axis measures nucleosome occupancy with normalized qPCR* fold changes. Higher Y values correspond to higher nucleosome occupancy. Notice that the non-consensus motif (blue circle at -400) has a low nucleosome occupancy while the consensus (red triangle at -250) site is nucleosome occluded.\
+
+##### Jessica's question: How is nucleosome occupany measured in Lam's study?
+- They used an enzyme called micrococcal nuclease or MNase to digest the genome of *S. cerevisiae*, and they purified the product with mononucleosome-size. In theory, DNA region in the nucleosomes are protected from digestion, which will produce a higher qPCR readout. A peak in Figure 2 mean a higher readout and is more likely to be the place where nucleosome is. Therefore, the nucleosome occupancy is interpreted by the qPCR results (High qPCR reads mean higher nucleosome occupancy).
+- Here is more information about this method in Supplementary figure S1 in Lam et al paper: [link to the figure in page 29](https://static-content.springer.com/esm/art%3A10.1038%2Fnature06867/MediaObjects/41586_2008_BFnature06867_MOESM207_ESM.pdf).
  
 ## Materials and Methods
 ### Data
