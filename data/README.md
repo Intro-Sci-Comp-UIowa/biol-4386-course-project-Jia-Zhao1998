@@ -3,6 +3,7 @@ This folder includes following data used for this project:
 - Source: [He et al, 2017](https://elifesciences.org/articles/25157)
 - Strain: K699 (W303)
 - Purpose: Binding sites of CgPho4 and ScPho4 in _S. cerevisiae_ background: 115, 74, respectively. Data Download [link](https://elifesciences.org/download/aHR0cHM6Ly9jZG4uZWxpZmVzY2llbmNlcy5vcmcvYXJ0aWNsZXMvMjUxNTcvZWxpZmUtMjUxNTctZmlnNC1kYXRhMS12Mi54bHN4/elife-25157-fig4-data1-v2.xlsx?_hash=IcmxB4nJvanOaBFmUOQAqHIJHNLlZJNWCY%2FkyTN1hGI%3D)
+- I plan to convert it to csv file in terminal 
 ## GSM730535_WT_NoPi_Nucleosome.wig.gz
 - Source: [Xu 2011](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3127084/)
 - Strain: W303
@@ -22,7 +23,7 @@ Supplementary_files_format_and_content: bedGraph
 ## GCF_000146045.2_R64_genomic.fna.gz
 - Source: NCBI
 - Strain: S288C
-- Purpose: Genome sequence, R64, SacCer3. [Link](https://www.ncbi.nlm.nih.gov/genome/15) to the sequence
+- Purpose: Genome sequence, R64, SacCer3. [Link](https://www.ncbi.nlm.nih.gov/genome/15) to the sequences. I plan to use wget to download all sequences. 
 ## GCF_000146045.2_R64_genomic.gff.gz
 - Source: NCBI
 - Strain: S288C
