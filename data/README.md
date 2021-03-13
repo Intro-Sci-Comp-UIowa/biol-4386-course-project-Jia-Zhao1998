@@ -1,17 +1,17 @@
 This folder includes following data used for this project:
-## elife-25157-fig4-data1-v2.xlsx
+## Binding sites of ScPho4/CgPho4: elife-25157-fig4-data1-v2.xlsx
 - Source: [He et al, 2017](https://elifesciences.org/articles/25157)
 - Strain: K699 (W303)
 - Purpose: Binding sites of CgPho4 and ScPho4 in _S. cerevisiae_ background: 115, 74, respectively. Data Download [link](https://elifesciences.org/download/aHR0cHM6Ly9jZG4uZWxpZmVzY2llbmNlcy5vcmcvYXJ0aWNsZXMvMjUxNTcvZWxpZmUtMjUxNTctZmlnNC1kYXRhMS12Mi54bHN4/elife-25157-fig4-data1-v2.xlsx?_hash=IcmxB4nJvanOaBFmUOQAqHIJHNLlZJNWCY%2FkyTN1hGI%3D)
 - I plan to convert it to csv file in terminal 
-## GSM730535_WT_NoPi_Nucleosome.wig.gz
+## WT in No Pi Nucleosome occupancy data: GSM730535_WT_NoPi_Nucleosome.wig.gz
 - Source: [Xu 2011](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3127084/)
 - Strain: W303
 - Purpose: Nucleosome occupancy data of WT No Pi from [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM730535) dataset in WIG format\
 Alignment: Sequence reads were obtained and mapped to the S. cerevisiae (2003) genomes using the Illumina Genome Analyzer Pipeline. All reads uniquely mapping with two or fewer mismatches were retained and read starts were summed in sliding windows of 80 bp to create summary windows.
 Paired-end Data: the average insert size for WT_NoPi_Nucleosome is 154 bp, with standard deviation of 22.8 bp\
 use .gitignore to ignore this file because it is over 10 Mb
-## GSM4193057_WT1_xl_MNase.bedgraph.gz
+## WT in normal/high Pi Nucleosome occupancy data: GSM4193057_WT1_xl_MNase.bedgraph.gz
 - Source: [Oberbeckmann et al, 2019](https://pubmed.ncbi.nlm.nih.gov/31694866/)
 - Strain: BY4741
 - Purpose: Nucleosome occupancy data of WT No Pi from [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM4193057) dataset in [BedGraph](https://genome.ucsc.edu/goldenPath/help/bedgraph.html) format\
@@ -20,11 +20,11 @@ BAM files were imported into R Studio (RStudio Team, 2015) using GenomicAlignmen
 bedgraph files were generated from genome coverage files using rtracklayer (Lawrence et al. 2009).
 Genome_build: SacCer3
 Supplementary_files_format_and_content: bedGraph
-## GCF_000146045.2_R64_genomic.fna.gz
+## Genomic Sequence: GCF_000146045.2_R64_genomic.fna.gz
 - Source: NCBI
 - Strain: S288C
 - Purpose: Genome sequence, R64, SacCer3. [Link](https://www.ncbi.nlm.nih.gov/genome/15) to the sequences. I plan to use wget to download all sequences. 
-## GCF_000146045.2_R64_genomic.gff.gz
+## Gene Annotations: GCF_000146045.2_R64_genomic.gff.gz
 - Source: NCBI
 - Strain: S288C
 - Purpose: Genome sequence annotation, R64, SacCer3. Same link above
