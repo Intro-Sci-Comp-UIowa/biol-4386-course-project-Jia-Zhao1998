@@ -11,6 +11,7 @@ This folder includes following data used for this project:
 Alignment: Sequence reads were obtained and mapped to the S. cerevisiae (2003) genomes using the Illumina Genome Analyzer Pipeline. All reads uniquely mapping with two or fewer mismatches were retained and read starts were summed in sliding windows of 80 bp to create summary windows.
 Paired-end Data: the average insert size for WT_NoPi_Nucleosome is 154 bp, with standard deviation of 22.8 bp\
 use .gitignore to ignore this file because it is over 10 Mb
+- I plan to analyze this data in terminal and plot in R (X axis: genomic position & gene annotation, y axis: nucleosome occupancy). 
 ## WT in normal/high Pi Nucleosome occupancy data: GSM4193057_WT1_xl_MNase.bedgraph.gz
 - Source: [Oberbeckmann et al, 2019](https://pubmed.ncbi.nlm.nih.gov/31694866/)
 - Strain: BY4741
@@ -20,12 +21,15 @@ BAM files were imported into R Studio (RStudio Team, 2015) using GenomicAlignmen
 bedgraph files were generated from genome coverage files using rtracklayer (Lawrence et al. 2009).
 Genome_build: SacCer3
 Supplementary_files_format_and_content: bedGraph
+- I plan to analyze this data in terminal and plot in R (X axis: genomic position & gene annotation, y axis: nucleosome occupancy).
 ## Genomic Sequence: GCF_000146045.2_R64_genomic.fna.gz
 - Source: NCBI
 - Strain: S288C
-- Purpose: Genome sequence, R64, SacCer3. [Link](https://www.ncbi.nlm.nih.gov/genome/15) to the sequences. I plan to use wget to download all sequences. 
+- Purpose: Genome sequence, R64, SacCer3. [Link](https://www.ncbi.nlm.nih.gov/genome/15) to the sequences. 
+- I plan to use wget to download all sequences in terminal, and use the sequence information to show the position of Pho4's binding sites and binding motifs. 
 ## Gene Annotations: GCF_000146045.2_R64_genomic.gff.gz
 - Source: NCBI
 - Strain: S288C
 - Purpose: Genome sequence annotation, R64, SacCer3. Same link above
+- I plan to use the gene annotation to correctly label the gene names of Pho4 targets
 
