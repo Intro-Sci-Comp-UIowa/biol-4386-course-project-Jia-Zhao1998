@@ -13,6 +13,9 @@ Paired-end Data: the average insert size for WT_NoPi_Nucleosome is 154 bp, with 
 use .gitignore to ignore this file because it is over 10 Mb
 - I plan to analyze this data in terminal and plot in R (X axis: genomic position & gene annotation, y axis: nucleosome occupancy). 
 ## WT in normal/high Pi Nucleosome occupancy data:
+- Source: Xu 2015 [(doi: 10.1016/j.celrep.2015.10.070)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4793274/)
+- Strain: SKI (derived from S288C)
+- Purpose: Nucleosome occupancy data of WT No Pi from [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM1849297). Data processing	Demultiplexing was accomplished using bcl2fastq. Alignment: bowtie v0.12.7, command-line parameters -m 1 --best. Track generation: MNase-seq BED files were rendered as bedGraphs using the BEDtools genomeCoverageBed utility; these were then RPM-adjusted. Resulting bedGraphs were converted to tracks using UCSC Genome Browser's bedGraphToBigWig utility. Genome_build: sacCer2. Supplementary_files_format_and_content: BigWigs are per-base pair track visualizations of the MNase-seq data after RPM adjustment.## Genomic Sequence: GCF_000146045.2_R64_genomic.fna.gz. 
 
 ## Genomic Sequence: GCF_000146045.2_R64_genomic.fna.gz
 - Source: NCBI
