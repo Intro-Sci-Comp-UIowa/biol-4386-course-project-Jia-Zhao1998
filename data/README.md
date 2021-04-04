@@ -12,11 +12,11 @@ Alignment: Sequence reads were obtained and mapped to the S. cerevisiae (2003) g
 Paired-end Data: the average insert size for WT_NoPi_Nucleosome is 154 bp, with standard deviation of 22.8 bp\
 use .gitignore to ignore this file because it is over 10 Mb
 - I plan to analyze this data in terminal and plot in R (X axis: genomic position & gene annotation, y axis: nucleosome occupancy). 
-## WT in normal/high Pi Nucleosome occupancy data:
-- Source: [Xu 2015](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4793274/)
+## WT in normal/high Pi Nucleosome occupancy data: GSM1849297_MNase-seq.WT.YPD.R1.bw
+- Source: [Hu 2015](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4793274/)
 - Strain: SKI (derived from S288C)
 - Purpose: Nucleosome occupancy data of WT No Pi from [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM1849297) in bw (BigWig) format. Data processing	Demultiplexing was accomplished using bcl2fastq. Alignment: bowtie v0.12.7, command-line parameters -m 1 --best. Track generation: MNase-seq BED files were rendered as bedGraphs using the BEDtools genomeCoverageBed utility; these were then RPM-adjusted. Resulting bedGraphs were converted to tracks using UCSC Genome Browser's bedGraphToBigWig utility. Genome_build: sacCer2. Supplementary_files_format_and_content: BigWigs are per-base pair track visualizations of the MNase-seq data after RPM adjustment.## Genomic Sequence: GCF_000146045.2_R64_genomic.fna.gz. 
-
+- I used bigWigtoWig package in terminal to convert the bigWig format to Wig format and store it in the local server. Size is ~90Mb: too big to upload to github
 ## Genomic Sequence: GCF_000146045.2_R64_genomic.fna.gz
 - Source: NCBI
 - Strain: S288C
