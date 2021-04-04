@@ -12,6 +12,18 @@ Alignment: Sequence reads were obtained and mapped to the S. cerevisiae (2003) g
 Paired-end Data: the average insert size for WT_NoPi_Nucleosome is 154 bp, with standard deviation of 22.8 bp\
 use .gitignore to ignore this file because it is over 10 Mb
 - I plan to analyze this data in terminal and plot in R (X axis: genomic position & gene annotation, y axis: nucleosome occupancy). 
+## WT in normal/high Pi Nucleosome occupancy data:
+
+## Genomic Sequence: GCF_000146045.2_R64_genomic.fna.gz
+- Source: NCBI
+- Strain: S288C
+- Purpose: Genome sequence, R64, SacCer3. [Link](https://www.ncbi.nlm.nih.gov/genome/15) to the sequences. 
+- I plan to use wget to download all sequences in terminal, and use the sequence information to show the position of Pho4's binding sites and binding motifs. 
+## Gene Annotations: GCF_000146045.2_R64_genomic.gff.gz
+- Source: NCBI
+- Strain: S288C
+- Purpose: Genome sequence annotation, R64, SacCer3. Same link above
+- I plan to use the gene annotation to correctly label the gene names of Pho4 targets
 ---
 ## (Proposed in HW2. Not used for real data analysis) WT in normal/high Pi Nucleosome occupancy data: GSM4193057_WT1_xl_MNase.bedgraph.gz
 - Source: [Oberbeckmann et al, 2019](https://pubmed.ncbi.nlm.nih.gov/31694866/)
@@ -27,14 +39,4 @@ Supplementary_files_format_and_content: bedGraph
 the paper you cited published in 2019 used a new technology other than MNase-seq. I can’t say for sure, based on the quick read I just did, whether you can use their result directly. in that paper however, you can see under Genome-wide absolute occupancy map and comparison with other nucleosome maps section that they compared their results to previous ones, which were MNase based. I quickly followed the second paper (True et al 2016) — I often directly go to the associated GEO page or in this case, the [SGD](yeastgenome.org) page, which conveniently listed all the relevant datasets. Notice that the last two datasets are MNase-seq for wt with two replicates. The other resource you should check — and it even allow you to quickly view any gene of interest — is the JBrowse available through SGD. go to yeastgenome.org, under “Sequences” select “Genome Browser”. In the resulting page, select “select tracks” and look for the “Micrococcal nuclease” in the data type. For example, [Hu, 2015 Nucleosome occupancy track.](https://browse.yeastgenome.org/?loc=chrII%3A429439..431404&tracks=DNA%2CAll%20Annotated%20Sequence%20Features%2Cyoung_cells_nucleosomes%2CHu_2015_MNase-seq_WT-YPD%2CHu_2015_MNase-seq_WT%2CH3H4_Nucleosome_positions&highlight=)
 
 ---
-## Genomic Sequence: GCF_000146045.2_R64_genomic.fna.gz
-- Source: NCBI
-- Strain: S288C
-- Purpose: Genome sequence, R64, SacCer3. [Link](https://www.ncbi.nlm.nih.gov/genome/15) to the sequences. 
-- I plan to use wget to download all sequences in terminal, and use the sequence information to show the position of Pho4's binding sites and binding motifs. 
-## Gene Annotations: GCF_000146045.2_R64_genomic.gff.gz
-- Source: NCBI
-- Strain: S288C
-- Purpose: Genome sequence annotation, R64, SacCer3. Same link above
-- I plan to use the gene annotation to correctly label the gene names of Pho4 targets
 
