@@ -1,5 +1,5 @@
 This folder includes following data used for this project:
-## Binding sites of ScPho4/CgPho4: elife-25157-fig4-data1-v2.xlsx
+## Binding sites of ScPho4/CgPho4: Binding_Sites_He2017.csv (converted from elife-25157-fig4-data1-v2.xlsx)
 - Source: [He et al, 2017](https://elifesciences.org/articles/25157)
 - Strain: K699 (W303)
 - Purpose: Binding sites of CgPho4 and ScPho4 in _S. cerevisiae_ background: 115, 74, respectively. Data Download [link](https://elifesciences.org/download/aHR0cHM6Ly9jZG4uZWxpZmVzY2llbmNlcy5vcmcvYXJ0aWNsZXMvMjUxNTcvZWxpZmUtMjUxNTctZmlnNC1kYXRhMS12Mi54bHN4/elife-25157-fig4-data1-v2.xlsx?_hash=IcmxB4nJvanOaBFmUOQAqHIJHNLlZJNWCY%2FkyTN1hGI%3D)
