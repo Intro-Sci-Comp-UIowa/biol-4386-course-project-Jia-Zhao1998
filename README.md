@@ -50,5 +50,5 @@ The end goal is to plot nucleosome occupancy for all 115 promoters that CgPho4 b
 #### I wrote a well-detailed Rmd to describe every steps from  I took to produce a draft figure
 Check the [link](file:///Users/zhaojia/Desktop/C16%20Nucleosome%20Occupancy/Rmd/Biol4386_Nucleosome_Occupancy_JiaZhao.html). It summarizes how I downloaded the data, manipulate the data, do the motif search, and make a plot. 
 
-[!Image]()
+![Image](https://github.com/Intro-Sci-Comp-UIowa/biol-4386-course-project-Jia-Zhao1998/blob/main/output/PHO5_draft1.png)
 
