@@ -47,7 +47,7 @@ The end goal is to plot nucleosome occupancy for all 115 promoters that CgPho4 b
 2. Deal with x axis. To construct the full information of x axis comparable to Fig 2, I need the information of genomic postion, gene annotation, and binding motifs. Data about genomic position and gene annotation can be downloaded from NCBI website. Binding motif coordinates can be (not) easily calculated by a pattern matching script in Python (I wrote one script last summer which uses any DNA sequence as input and binding site locations and motif information as output. The result will be a csv file that contain the motif and its information of coordinates).
 
 ## Results
-Please check file:///Users/zhaojia/Desktop/C16%20Nucleosome%20Occupancy/Rmd/Biol4386_Nucleosome_Occupancy_JiaZhao.html. It summarizes how I downloaded the two nucleosome occupancy data, manipulate the data, do the motif search, deal with gene annotation file, and make a draft plot. 
+I reviewed my previous codes and wrote a detailed summary of the steps I took for analyzing data. Please check file:///Users/zhaojia/Desktop/C16%20Nucleosome%20Occupancy/Rmd/Biol4386_Nucleosome_Occupancy_JiaZhao.html. It summarizes how I downloaded the two nucleosome occupancy data, manipulate the data, do the motif search, deal with gene annotation file, and make a draft plot. 
 
 ### Overview of the file above
 
@@ -68,4 +68,8 @@ This figure is to plot the nucleosome occupancy of the promoter region of a gene
 - Plot the nucleosome occupancy data under WT high Pi condition for *PHO5*. I processed the WT high Pi nucleosome occupancy data from Hu, 2015. I will plot it and compare with no Pi condition. 
 - Produce a more comprehensive figure and compare with the reference figure.
 - Include more binding sites of CgPho4 and ScPho4. I downloaded He, 2017 spreadsheet in a csv in R that stores all necessary information of the binding sites. I also divided the binding sites to shared binding sites of both Pho4 and CgPho4-bound only sites. The next step is to plot those target genes and compared between these two groups. 
+### Problems I encountered
+- Translate the coordinates in the nucleosome occupancy file to the sacCer3 version. I plan to try LiftOver
+- Identify the correct gene annotation files for sacCer1-3
+- Identify the promoter region based on strand information. Now, I got a message error: "infinite x value..." in my function. Plan to read more about ggplot2
 
