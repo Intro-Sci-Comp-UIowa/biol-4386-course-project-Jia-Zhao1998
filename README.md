@@ -47,7 +47,7 @@ The end goal is to plot nucleosome occupancy for all 115 promoters that CgPho4 b
 2. Deal with x axis. To construct the full information of x axis comparable to Fig 2, I need the information of genomic postion, gene annotation, and binding motifs. Data about genomic position and gene annotation can be downloaded from NCBI website. Binding motif coordinates can be (not) easily calculated by a pattern matching script in Python (I wrote one script last summer which uses any DNA sequence as input and binding site locations and motif information as output. The result will be a csv file that contain the motif and its information of coordinates).
 
 ## Results
-I reviewed my previous codes and wrote a detailed summary of the steps I took for analyzing data. Please check file:///Users/zhaojia/Desktop/C16%20Nucleosome%20Occupancy/Rmd/Biol4386_Nucleosome_Occupancy_JiaZhao.html. It summarizes how I downloaded the two nucleosome occupancy data, manipulate the data, do the motif search, deal with gene annotation file, and make a draft plot. I also updated data, script, analysis, and this file for HW3. 
+I reviewed my previous codes and wrote a detailed summary of the steps I took for analyzing data. Please go to *output/* folder and check *Detailed_Analysis.Rmd* or the associated doc titled *Biol4386_Nucleosome_Occupancy_JiaZhao.docx*. It summarizes how I downloaded the two nucleosome occupancy data, manipulate the data, do the motif search, deal with gene annotation file, and make a draft plot. I also updated data, script, analysis, and this file for HW3. 
 
 ### Overview of the file above
 
