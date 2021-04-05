@@ -47,7 +47,7 @@ The end goal is to plot nucleosome occupancy for all 115 promoters that CgPho4 b
 2. Deal with x axis. To construct the full information of x axis comparable to Fig 2, I need the information of genomic postion, gene annotation, and binding motifs. Data about genomic position and gene annotation can be downloaded from NCBI website. Binding motif coordinates can be (not) easily calculated by a pattern matching script in Python (I wrote one script last summer which uses any DNA sequence as input and binding site locations and motif information as output. The result will be a csv file that contain the motif and its information of coordinates).
 
 ## Results
-Check file:///Users/zhaojia/Desktop/C16%20Nucleosome%20Occupancy/Rmd/Biol4386_Nucleosome_Occupancy_JiaZhao.html. It summarizes how I downloaded the data, manipulate the data, do the motif search, and make a plot. 
+Check file:///Users/zhaojia/Desktop/C16%20Nucleosome%20Occupancy/Rmd/Biol4386_Nucleosome_Occupancy_JiaZhao.html. It summarizes how I downloaded the data, manipulate the data, do the motif search, deal with gene annotation file, and make a draft plot. 
 
 ### Overview of the file above
 
@@ -59,5 +59,7 @@ Check file:///Users/zhaojia/Desktop/C16%20Nucleosome%20Occupancy/Rmd/Biol4386_Nu
 - Conclusion
 - Acknowledgment 
 
+### Draft plot: *PHO5*
 ![Image](https://github.com/Intro-Sci-Comp-UIowa/biol-4386-course-project-Jia-Zhao1998/blob/main/output/PHO5_draft1.png)
+This figure is to plot the nucleosome occupancy of the promoter region of a gene PHO5 in WT no Pi condition. x axis is the genomic coordinate based on genome assembly version sacCer1 genomic coordinates (because the nucleosome occupancy dataset was alligned to sacCer1). Notice that the gene *PHO5* is located on sacCer1: chr2:429504-430907 and on "-" strand, so the promoter region coordinate is 430908-431708 (800 bp is commonly considered as the promoter region in yeast). y axis is the data value to represent nucleosome occupancy produced from a method called MNase-seq. High y value means high nucleosome occupancy. 
 
