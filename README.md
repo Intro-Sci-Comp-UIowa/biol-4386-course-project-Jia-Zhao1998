@@ -35,7 +35,7 @@ For more information about the data, please visit the **data** folder.
 Data|Citation|Purpose
 -----|------|--------
 Nucleosome Occupancy No Pi|[Zhou & O'Shea 2011](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3127084/)|To get the nucleosome occupany No Pi data; wig file through the [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM730535) datasets or raw [FASTQ](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA141451&o=acc_s%3Aa) files through the SRA Run selector
-Nucleosome Occupancy High Pi|[Oberbeckmann, 2019](https://pubmed.ncbi.nlm.nih.gov/31694866/)|To get the nucleosome occupancy High Pi data; BedGraph file from [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM4193057) datasets or raw [FASTQ](https://www.ncbi.nlm.nih.gov/sra?term=SRX7217819)
+Nucleosome Occupancy High Pi|[Hu, 2015](https://pubmed.ncbi.nlm.nih.gov/31694866/)|To get the nucleosome occupancy High Pi data; BedGraph file from [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM1849297) datasets. 
 Binding sites of Pho4|[He et al 2017](https://elifesciences.org/articles/25157)| 115 sites for CgPho4; 74 sites for ScPho4
 Genome Sequence and Annotation|[NCBI Website](https://www.ncbi.nlm.nih.gov/genome/15)|the genome is based on S. cerevisiae genome version R64
 
