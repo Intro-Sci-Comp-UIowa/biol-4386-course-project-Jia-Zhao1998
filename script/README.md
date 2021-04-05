@@ -4,3 +4,6 @@ This folder includes scripts for this project.
  
 # Nucleosome_Occupancy_PromoterPlot.R
 - Plot the nucleosome occupancy in the promoter region (upstream 800 bp) of a gene
+
+# random_plot.R
+- Plot the nucleosome occupancy of calling any start and end coordiinate position of a chromosome
