@@ -47,19 +47,25 @@ The end goal is to plot nucleosome occupancy for all 115 promoters that CgPho4 b
 2. Deal with x axis. To construct the full information of x axis comparable to Fig 2, I need the information of genomic postion, gene annotation, and binding motifs. Data about genomic position and gene annotation can be downloaded from NCBI website. Binding motif coordinates can be (not) easily calculated by a pattern matching script in Python (I wrote one script last summer which uses any DNA sequence as input and binding site locations and motif information as output. The result will be a csv file that contain the motif and its information of coordinates).
 
 ## Results
-Check file:///Users/zhaojia/Desktop/C16%20Nucleosome%20Occupancy/Rmd/Biol4386_Nucleosome_Occupancy_JiaZhao.html. It summarizes how I downloaded the data, manipulate the data, do the motif search, deal with gene annotation file, and make a draft plot. 
+Please check file:///Users/zhaojia/Desktop/C16%20Nucleosome%20Occupancy/Rmd/Biol4386_Nucleosome_Occupancy_JiaZhao.html. It summarizes how I downloaded the two nucleosome occupancy data, manipulate the data, do the motif search, deal with gene annotation file, and make a draft plot. 
 
 ### Overview of the file above
 
 - Goal
 - Steps
-  - Data manipulation 
-  - Binding motif search
-  - Plot
+  - Data manipulation (WT high Pi, WT no Pi,  download and clean)
+  - Binding motif search (Take genomic sequence sacCer1-3 and output motif and its coordinates in csv files)
+  - Plot (Load the binding sites of Pho4 in R. Plot the nucleosome occupancy data)
 - Conclusion
 - Acknowledgment 
 
 ### Draft plot: *PHO5*
 ![Image](https://github.com/Intro-Sci-Comp-UIowa/biol-4386-course-project-Jia-Zhao1998/blob/main/output/PHO5_draft1.png)
 This figure is to plot the nucleosome occupancy of the promoter region of a gene PHO5 in WT no Pi condition. x axis is the genomic coordinate based on genome assembly version sacCer1 genomic coordinates (because the nucleosome occupancy dataset was alligned to sacCer1). Notice that the gene *PHO5* is located on sacCer1: chr2:429504-430907 and on "-" strand, so the promoter region coordinate is 430908-431708 (800 bp is commonly considered as the promoter region in yeast). y axis is the data value to represent nucleosome occupancy produced from a method called MNase-seq. High y value means high nucleosome occupancy. 
+### Future direction
+- Translate genomic coordinates. The nucleosome occupancy data in WT high Pi and No Pi were alligned to different versions of genomic sequence, so the cooridates are not consistent. I plan to use a package/UCSC online tool liftOver to make the convertion. 
+- Allign the motif information to the x coordinates. I produced motif and its positions for three versions of genomic sequences sacCer1, sacCer2, and sacCer3, but didn't put the information to the plot yet. Could be done in R and use ggplot2. 
+- Plot the nucleosome occupancy data under WT high Pi condition for *PHO5*. I processed the WT high Pi nucleosome occupancy data from Hu, 2015. I will plot it and compare with no Pi condition. 
+- Produce a more comprehensive figure and compare with the reference figure.
+- Include more binding sites of CgPho4 and ScPho4. I downloaded He, 2017 spreadsheet in a csv in R that stores all necessary information of the binding sites. I also divided the binding sites to shared binding sites of both Pho4 and CgPho4-bound only sites. The next step is to plot those target genes and compared between these two groups. 
 
