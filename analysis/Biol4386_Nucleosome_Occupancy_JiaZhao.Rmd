@@ -1,0 +1,413 @@
+---
+title: "Biol4386_Nucleosome_Occupancy"
+author: "Jia Zhao"
+date: "3/27/2021"
+output:
+  html_notebook:
+    toc: true
+    toc_float: true
+    df_print: default
+    code_folding: hide
+---
+# What is in the file?
+
+This file is to summarize the steps of data analysis I did to analyze nucleosome occupancy data (wig/bigWig format) and plot the nucleosome occupancy data and motif information along with the genomic coordinates for the binding sites of transcription factors CgPho4 and ScPho4 (He, 2017). \ 
+
+# Overview
+
+- Goal
+- Steps
+  - Data manipulation 
+  - Binding motif search
+  - Plot
+- Conclusion
+- Acknowledgment 
+
+# Goal
+
+This project is to compare the features of binding sites of an ortholog pair CgPho4 and ScPho4 (the master transcription factor for regulating phosphate starvation response. Cg: *Candida glabrata*; Sc: *Saccharomyces cerevisiae*). We hypothesize that CgPho4 is more capable of binding at the consensus CACGTG motifs that are occluded by nucleosomes, and when there are no exposed weak motif(s) nearby to allow ScPho4 and ScPho2 to use.\
+
+For more details about the background information, check this [link.](https://github.com/Intro-Sci-Comp-UIowa/biol-4386-course-project-Jia-Zhao1998). 
+
+# Steps 
+Here are detailed steps I took. The goal is to plot nucleosome occupancy and binding motif against the genomic position of *S. cerevisiae*. 
+
+## Data manipulation
+This project requires the nucleosome occupancy data from high phosphate (Pi) background and no Pi background, and the genomic sequence to search for motifs of Pho4
+
+### Nucleosome occupancy data
+
+#### WT High Pi Nucleosome Occupancy Data
+- Source: [Hu 2015](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4793274/)
+- Strain: SKI (derived from S288C)
+- Purpose: Nucleosome occupancy data of WT High Pi from [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM1849297) in bw (BigWig) format. 
+- Data processing	Demultiplexing was accomplished using bcl2fastq. Alignment: bowtie v0.12.7, command-line parameters -m 1 --best. Track generation: MNase-seq BED files were rendered as bedGraphs using the BEDtools genomeCoverageBed utility; these were then RPM-adjusted. Resulting bedGraphs were converted to tracks using UCSC Genome Browser's bedGraphToBigWig utility. Genome_build: sacCer2. Supplementary_files_format_and_content: BigWigs are per-base pair track visualizations of the MNase-seq data after RPM adjustment.## Genomic Sequence: GCF_000146045.2_R64_genomic.fna.gz. 
+- I used bigWigtoWig package in terminal to convert the bigWig format to Wig format and store it in the local server. Size is ~90Mb: too big to upload to github
+
+Here is the code to load wig format data: WT high Pi Nucleosome Occupancy in bigWig format (for more information about this formate, check [UCSC website](http://genome.ucsc.edu/goldenPath/help/bigWig.html)).
+```{r}
+# Adapted from "data/07232020-Promoter_Nucleosome_Occupancy.Rmd"
+# Load final_table: nucleosome occupancy data
+WT_HighPi_NucOccupancy <- read.table("~/Desktop/C16 Nucleosome Occupancy/data/MNase-seq.WT.YPD.R1.wig", header= FALSE, fill = TRUE) # create 4 columns fill in blank if missing value
+
+colnames(WT_HighPi_NucOccupancy) <- c("chromosome","start position", "end position","score") # Edit column names
+
+head(WT_HighPi_NucOccupancy) # Notice this file is well organized: 3694650 obs. of 4 variables: chromosome number, start position, end position, and score. 
+
+```
+
+---
+
+#### WT No Pi Nucleosome Occupancy Data
+- Source: [Xu 2011](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3127084/)
+- Strain: W303
+- Purpose: Nucleosome occupancy data of WT No Pi from [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM730535) dataset in WIG format
+- Data orocessing: Alignment: Sequence reads were obtained and mapped to the **S. cerevisiae (2003) genomes** using the Illumina Genome Analyzer Pipeline. All reads uniquely mapping with two or fewer mismatches were retained and read starts were summed in sliding windows of 80 bp to create summary windows.
+Paired-end Data: the average insert size for WT_NoPi_Nucleosome is 154 bp, with standard deviation of 22.8 bp\
+use .gitignore to ignore this file because it is over 10 Mb
+- I plan to analyze this data in terminal and plot in R (X axis: genomic position & gene annotation, y axis: nucleosome occupancy). 
+
+Here is the code to load wig format data: WT No Pi Nucleosome Occupancy
+```{r}
+# Adapted from "data/07232020-Promoter_Nucleosome_Occupancy.Rmd"
+
+# Load final_table: nucleosome occupancy data
+setwd('~/Desktop/C16 Nucleosome Occupancy/') # set up the working directory that includes the nucleosome occupancy data. 
+
+WT_NoPi_NucOccupancy <- read.table("~/Desktop/C16 Nucleosome Occupancy/data/GSM730535_WT_NoPi_Nucleosome.wig", header= FALSE, fill = TRUE) # create 4 columns fill in blank if missing value
+head(WT_NoPi_NucOccupancy) # Note there are two empty columns named V3 and V4 and the definition line we don't need
+
+# Clean the table: Remove the unwanted columns; organize the to three columns: chr number; postion, nucleosome occupancy value
+WT_NoPi_NucOccupancy <- subset(WT_NoPi_NucOccupancy, select= -c(V3, V4)) # remove  two empty columns
+head(WT_NoPi_NucOccupancy)
+# Specify which lines belong to which chromosome
+which(grepl("chrom=chr2", WT_NoPi_NucOccupancy$V2)) # Output is 204189, which means the line 204188 is the last line assigned to chr 1. It is to check the row number when the box has chrom=chr1 through 16 in it in order to store and assign this chromosome number to related position and value.
+line_chromosomes <- c(2,204189,993490,1296475,2751654,3306100,3566096,4612851,5144729,5564307,6265831,6930796,7951015,8839689,9585994,10642596) # specify the line number that stores chr number info. Use which(grepl("chrom=chr#", WT_NoPi_NucOccupancy$V2)) to check!
+# Optional: Filter the table based on chromosome number. Use Python to find number of lines for chr 1-16. i.e. we have the first 204188 lines that belong to chr 1
+lines_in_chromosome <- c(204188, 789301, 302985, 1455179, 554446, 259996, 1046755, 531878, 419578, 701524, 664965, 1020219, 888674, 746305, 1056602, 901321) # these number specifies total number of lines that belong to a chromosome (from chr1 to chr16)
+chromosome <- c("chr 1", "chr 2", "chr 3", "chr 4","chr 5", "chr 6", "chr 7", "chr 8","chr 9", "chr 10", "chr 11", "chr 12","chr 13", "chr 14", "chr 15", "chr 16") # create a varible to store the chromosome number information
+
+WT_NoPi_NucOccupancy <- data.frame(rep(chromosome, lines_in_chromosome), WT_NoPi_NucOccupancy) # add a new column to specify chromosome number
+colnames(WT_NoPi_NucOccupancy) <- c("chromosome","position", "score") # Edit column names
+head(WT_NoPi_NucOccupancy) # Notice the definition line and the lines that store chromosome number information are needed to be removed
+
+# Remove 17 rows that contain "variableStep" & "chrom =#" (declaration line)or the track definition line
+WT_NoPi_NucOccupancy <- WT_NoPi_NucOccupancy[-c(1,2,204189,993490,1296475,2751654,3306100,3566096,4612851,5144729,5564307,6265831,6930796,7951015,8839689,9585994,10642596),] 
+head(WT_NoPi_NucOccupancy) # total 11543899 obs. of 3 variables
+```
+Notice the final table includes chromosome number, position and the score (higher score means higher nucleosome occupancy). The position corresponds to *S. cerevisiae* genome version sacCer1.
+
+---
+## Binding motif search
+This step is done in Python. The final output is a csv file with the motif and position information stored. Notice the Python uses zero as the start position, while R and the genomic coordinates starts with 1. Keep this in mind while doing motif search in Python (add 1)!
+### Goal
+* Find **"CACGTG"** and 1-bp off motifs in *S.cerevisiae* genome (three versions: sacCer1, 2 and 3) in Python and import a summary of motif positions in a csv file to R. 
+
+### Step 1: Download genomic sequence data (Optiol step if data already in the data/ folder)
+  + Genome version: sacCer1 (or Oct. 2003 in the Saccharomyces Genome 
+Database or SGD (http://www.yeastgenome.org/)). Downloaded [URL](http://hgdownload.soe.ucsc.edu/goldenPath/sacCer1/bigZips/)
+  + Genome version: sacCer2 (based on June 2008 in SGD). Downloaded [URL](http://hgdownload.soe.ucsc.edu/goldenPath/sacCer2/bigZips/)
+  + Genome version: sacCer3 (based on April 2011 in SGD). Downloaded [URL](http://hgdownload.soe.ucsc.edu/goldenPath/sacCer3/bigZips/)
+  
+### Step 2---Convert 2bit to csv in R for futher analysis in Python
+* 2bit file hard to be read in Python. Converted in R to a data frame: chromosome number + sequence as one line
+  + Result: **'sacCer#.2bit' to 'S288c_sacCer#_genomeseq.csv'**
+```{r}
+library(rtracklayer)
+#Convert 2bit sequence data to a data frame and export as csv
+sacCer1<- import.2bit(con = "/Users/zhaojia/Desktop/C16 Nucleosome Occupancy/data/sacCer1.2bit")
+sacCer1 <- data.frame(sacCer1)
+write.csv(sacCer1, file = "~/Desktop/C16 Nucleosome Occupancy/data/S288c_sacCer1_genomeseq.csv")
+
+sacCer2<- import.2bit(con = "/Users/zhaojia/Desktop/C16 Nucleosome Occupancy/data/sacCer2.2bit")
+sacCer2 <- data.frame(sacCer2)
+write.csv(sacCer2, file = "~/Desktop/C16 Nucleosome Occupancy/data/S288c_sacCer2_genomeseq.csv")
+
+sacCer3<- import.2bit(con = "/Users/zhaojia/Desktop/C16 Nucleosome Occupancy/data/sacCer3.2bit")
+sacCer3 <- data.frame(sacCer3)
+write.csv(sacCer3, file = "~/Desktop/C16 Nucleosome Occupancy/data/S288c_sacCer3_genomeseq.csv")
+```
+
+### Step 3---Python:  Motif search
+* Find all consensus and 1-bp-off motifs in *S. cerevisiae* for all of the three versions. 
+  + The final outputs from Python are three 'Motif.csv' files including information about **"chromosome", "motif", "start" and "end"** position. 
+  + Note: pay attention to **element[2] = index + occurrence * len(motif)** in find_motif(motif,seq) function, which is different from my previous code. It's a bug I fixed to get the original start position of a motif after I remove the first detected motif.
+```{python, include = FALSE, warning = FALSE, echo=FALSE}
+# This is done in python in Jupyter lab. This code chunk is to report all of the consensus and 1-bp off motifs in the S288c_genome sacCer1-3 genomic sequence. The output csv files include four variables: "chromosome", "motif", "start position", "end position"
+
+# Find a motif in a seq: Fuzzy search consensus/1 bp off motif 
+
+consensus_motif= "CACGTG" # This is the consensus motif for CgPho4 and ScPho4 in + strand
+# consensus_motif= "GTGCAC" # This is to find the motif position in the - strand
+data=[]
+element=["chromosome", "motif", "start position", "end position"]
+seq = ""
+
+# This function is to find any motif and outputs the positions
+def find_motif(motif,seq):
+    occurrence=0
+    while motif in seq:
+        mylist = []
+        element[1] = motif
+        index = seq.find(motif) # Find the first motif
+        seq = seq[:index] + seq[index + len(motif):] # Remove the first detected motif
+        # Get the original index for the next motif search
+        element[2] = index + occurrence * len(motif) + 1 # Python starts with the position 0. Correct it to 1
+        element[3] = element[2] + len(motif) - 1
+        mylist = mylist + element # mylist includes one piece of information for one motif
+        occurrence = occurrence + 1
+        data.append(mylist) # The list "data" includes the positions of consensus motif.
+    
+# This function is to do a fuzzy search of 1 base pair off motif and output positions
+my_list = ["C", "A", "T", "G"]
+def find_1_bp_off_motif():
+    b=[]
+    # this for loop aims to create a list of 1-bp off motifs. Starting from "NACGTG" to "CACGTN"
+    for i in range(6):
+        for j in range(4):
+            a= ""
+            if my_list[j] == consensus_motif[i]:
+                continue
+            else:
+                a = consensus_motif[:i] + str(my_list[j]) + consensus_motif[i+1:]
+                b.append(a) # The list b stores all possible 1-bp off motifs
+    for i in range(len(b)):
+        find_motif(b[i], seq) # create a list of list to include motif and position information      
+
+```
+Note: Python script about generating csv of motif and position is stores in /C16 Nucleosome Occupancy/script/MotifSearch.py. For some reason, my Rstudion can't directly run some python codes, so motif csv files (sacCer#Motif.csv were made in Jupyter lab)
+
+
+### Step 4---Import "sacCer#.csv" in R
+
+"CACGTG" and "GTGCAC" position in three genomic versions of sacCer
+
+```{r, include = FALSE}
+# Change directory to data/
+setwd('~/Desktop/C16 Nucleosome Occupancy/data/')
+
+# "CACGTG" position in three genomic versions of sacCer
+
+# Load motif information derived from sacCer1 in R
+sacCer1Motif <- read.csv("sacCer1.csv", header = FALSE)
+colnames(sacCer1Motif) <- c("chromosome", "motif", "start", "end")
+sacCer1Motif <- print(as.data.frame(sapply(sacCer1Motif, function(x) gsub("\"", "", x)))) # remove quotation marks
+head(sacCer1Motif)
+
+# Load motif information derived from sacCer2 in R
+sacCer2Motif <- read.csv("sacCer2.csv", header = FALSE)
+colnames(sacCer2Motif) <- c("chromosome", "motif", "start", "end")
+sacCer2Motif <- print(as.data.frame(sapply(sacCer2Motif, function(x) gsub("\"", "", x)))) # remove quotation marks
+
+
+# Load motif information derived from sacCer3 in R
+sacCer3Motif <- read.csv("sacCer3.csv", header = FALSE)
+colnames(sacCer3Motif) <- c("chromosome", "motif", "start", "end")
+sacCer3Motif <- print(as.data.frame(sapply(sacCer3Motif, function(x) gsub("\"", "", x)))) # remove quotation marks
+
+
+# "GTGCAC" position in three genomic versions of sacCer
+
+# Load motif information derived from sacCer1 in R
+sacCer1REVMotif <- read.csv("sacCer1_REV.csv", header = FALSE)
+colnames(sacCer1REVMotif) <- c("chromosome", "motif", "start", "end")
+sacCer1REVMotif <- print(as.data.frame(sapply(sacCer1REVMotif, function(x) gsub("\"", "", x)))) # remove quotation marks
+
+# Load motif information derived from sacCer2 in R
+sacCer2REVMotif <- read.csv("sacCer2_REV.csv", header = FALSE)
+colnames(sacCer2REVMotif) <- c("chromosome", "motif", "start", "end")
+sacCer2REVMotif <- print(as.data.frame(sapply(sacCer2REVMotif, function(x) gsub("\"", "", x)))) # remove quotation marks
+
+
+# Load motif information derived from sacCer3 in R
+sacCer3REVMotif <- read.csv("sacCer3_REV.csv", header = FALSE)
+colnames(sacCer3REVMotif) <- c("chromosome", "motif", "start", "end")
+sacCer3REVMotif <- print(as.data.frame(sapply(sacCer3REVMotif, function(x) gsub("\"", "", x)))) # remove quotation marks
+
+```
+Check first six lines of motif search results for sacCer1-3.
+
+#### sacCer 1 Motif table "CACGTG"
+```{r}
+head(sacCer1Motif)
+```
+
+#### sacCer 2 Motif table "CACGTG"
+```{r}
+head(sacCer2Motif)
+```
+
+#### sacCer 3 Motif table "CACGTG"
+```{r}
+head(sacCer3Motif)
+```
+
+#### sacCer 1 Motif table "GTGCAC"
+```{r}
+head(sacCer1REVMotif)
+```
+
+#### sacCer 2 Motif table "GTGCAC"
+```{r}
+head(sacCer2REVMotif)
+```
+
+#### sacCer 3 Motif table "GTGCAC"
+```{r}
+head(sacCer3REVMotif)
+```
+
+
+# Plot
+## Load the csv with the binding sites 
+
+```{r}
+Binding_Sites <- read.csv(file = '~/Desktop/C16 Nucleosome Occupancy/data/Binding_Sites_He2017.csv', sep = ",")
+head(Binding_Sites)
+
+# Divide the file into shared binding sites vs CgPho4-bound only sites
+Shared_Binding_Sites <- subset(Binding_Sites, Binding_Sites[, 5] == TRUE & Binding_Sites[, 8] == TRUE)
+
+CgPho4_Only_Binding_Sites <- subset(Binding_Sites, Binding_Sites[, 5] == FALSE & Binding_Sites[, 8] == TRUE)
+
+```
+I will extract the gene names from these data frames.
+
+## (Optional) Fun Exercise: Make a random plot
+- Given the data for WT No Pi nucleosome occupancy (a data frame with three variables: chr #, position, and score); the start position, and the end position, the random_plot will plot the nuclesome occupancy value. The default will plot chr 1: 1-800
+- **Notice the genomic cooridinate is from the raw file made by Zhou Xu that alligns with sacCer1. **
+```{r, WT No Pi, ignore = TRUE, echo=FALSE}
+random_ggplot <- function(data= WT_NoPi_NucOccupancy, chromosome="chr 1", start=1, end=800){
+  # data is a data frame; chromosome is a string/character and a column of data, start and end are integers
+    sub_data <- data[data$chromosome == chromosome,]
+    sub_data$position <- as.numeric(sub_data$position)
+    sub_data$score <- as.numeric(sub_data$score)
+    sub_data <- sub_data[position >= start & position <= end,]
+    ggplot(sub_data, aes(x= position, y = score))+geom_line()+geom_point()+theme_bw()
+}
+random_ggplot()
+```
+END
+## Translate Genomic Coordinates: UCSC LiftOver
+The nucleosome occupancy data for WT high Pi and No Pi were mapped to sacCer2 and sacCer1 genome of *S. cerevisiae*, which makes them iNcomparable, so I plan to use [LiftOver](https://genome.ucsc.edu/cgi-bin/hgLiftOver) to translate coordinates to sacCer3 version, which was used by He to identify the binding sites of Pho4. 
+- For example, sacCer 3 gene PHO5 coordinates are, while it's chr2:431003-431523 in sacCer1. 
+- I will do it later
+## Load Gene Annotation File for sacCer1, sacCer2 and sacCer3 from UCSC
+The final output will be a data frame that stores information about gene name, start position, end position, strand, and chromosome number. 
+```{r}
+# UCSC: sacCer1 gene annotation: 5769 obs of 5 var (unique)
+S288cAnnotation_sacCer1 <- read.delim(file = '~/Desktop/C16 Nucleosome Occupancy/data/sgdGene.txt', header = FALSE)
+# Information from http://hgdownload.soe.ucsc.edu/goldenPath/sacCer1/database/sgdGene.txt.gz
+colnames(S288cAnnotation_sacCer1) <- c("gene", "chromosome", "strand", "start", "end", "cds start", "cds end", "exon counts", "exon start", "exon end", "protein ID")
+S288cAnnotation_sacCer1 <- S288cAnnotation_sacCer1[c(-6:-11)]
+
+# UCSC: sacCer2 (SGD June 2008) gene annotation: 6717 obs of 5 var (unique)
+S288cAnnotation_sacCer2 <- read.delim(file = '~/Desktop/C16 Nucleosome Occupancy/data/sacCer2.txt', header = FALSE)
+# Information from http://hgdownload.soe.ucsc.edu/goldenPath/sacCer1/database/sgdGene.txt.gz
+colnames(S288cAnnotation_sacCer2) <- c("number", "gene", "chromosome", "strand", "start", "end", "cds start", "cds end", "exon counts", "exon start", "exon end", "protein ID")
+S288cAnnotation_sacCer2 <- S288cAnnotation_sacCer2[c(-1,-7:-12)]
+
+# UCSC: Apr. 2011 (SacCer_Apr2011/sacCer3) assembly of the S. cerevisiae genome (sacCer3, Saccharomyces cerevisiae S288c assembly from Saccharomyces Genome Database (GCA_000146055.2)). 6692 obs of 5 var (unique)
+S288cAnnotation_sacCer3 <- read.delim(file = '~/Desktop/C16 Nucleosome Occupancy/data/sacCer3.txt', header = FALSE)
+# Information from http://hgdownload.soe.ucsc.edu/goldenPath/sacCer1/database/sgdGene.txt.gz
+colnames(S288cAnnotation_sacCer3) <- c("number", "gene", "chromosome", "strand", "start", "end", "cds start", "cds end", "exon counts", "exon start", "exon end", "protein ID")
+S288cAnnotation_sacCer3 <- S288cAnnotation_sacCer3[c(-1,-7:-12)]
+```
+
+Annotation file for sacCer1:
+
+```{r}
+head(S288cAnnotation_sacCer1)
+```
+
+Annotation file for sacCer2:
+
+```{r}
+head(S288cAnnotation_sacCer2)
+```
+
+Annotation file for sacCer3:
+
+```{r}
+head(S288cAnnotation_sacCer3)
+```
+
+
+## Nucleosome Occupancy plot of promoter region of a gene
+Load plot function for ploting the nucleosome occupancy of the promoter region of a specific gene (upsteam 800 bp of CDS). 
+
+```{r, include= FALSE, ignore = TRUE}
+# This function is to plot the nucleosome Occupancy score against the position of a promoter of a gene
+
+Promoter_ggplot <- function(data = S288cAnnotation_sacCer1, gene = "YBR093C"){
+  line2 <- data[which(data$gene == gene),]
+  chr <- line2$chromosome # extract the chromosome information
+  # extract the chromosome number from chr
+  chr_num <- strsplit(chr, "chr")
+  chr_num <- unlist(chr_num)
+  chr_num <- chr_num[-1]
+  # Target the promoter region based on the strand information
+  if (line2$strand == "-"){
+    random_ggplot(chromosome = paste("chr", chr_num), start = line2$end + 1, end = line2$end + 800)+labs(title =paste(gene, "in No Pi"))
+  }else{
+    random_ggplot(chromosome = paste("chr", chr_num), start = line2$start - 800, end = line2$start - 1)+labs(title =paste(gene, "in No Pi"))
+  }()
+}
+```
+
+
+## PHO5 example: WT high Pi and No Pi plot
+### Derived from online UCSC LiftOver tool 
+- sacCer1: chr2:429504-430907
+- sacCer2: chrII:429542-430945
+- sacCer3: chrII:429548-430951
+
+#### "YBR093C" or *PHO5* promoter plot No Pi
+##### Adjust the scale the axis
+- for x axis, position 0 is the end position of *PHO5* CDS; position -800 is upstream of this gene or the promoter upmost position
+  - if strand is + for this gene, the promoter region is from (the start position (the leftmost) - 800) to the start position
+  - if strand is - for this gene, the promoter region is from the end position (the rightmost) to (the end position + 800).i.e. *PHO5*
+- for y axis, set it from 0 to 1000 with the increment of 100
+
+```{r, ignore = TRUE}
+Promoter_ggplot_NoPi()
+```
+```{r}
+# This function is to plot the nucleosome occupancy score aginst the promoter region of a gene and also to plot
+# the Pho4 consensus motif and 1-bp off motif of Pho4 along with the genomic position. 
+
+Promoter_motif_ggplot_NoPi <- function(motif = sacCer1Motif, gene = "YBR093C"){
+  if (line$strand == "-"){
+    motifs <- motif[which(motif$chromosome == line$chromosome & as.numeric(motif$start) 
+                          >= line$end & as.numeric(motif$end) <= line$end + 800),]
+    Promoter_ggplot_NoPi() + geom_segment(aes(x = as.numeric(start), y = 0, xend = as.numeric(end), yend = 0), 
+                                        data = motifs, size = 5, col = ifelse(motifs$motif=="CACGTG", "red","blue"))
+  }else{
+    motifs <- motif[which(motif$chromosome == line$chromosome & as.numeric(motif$start)
+                               >= line$start - 800 & as.numeric(motif$end) <= line$start),]
+    Promoter_ggplot_NoPi() + geom_segment(aes(x = as.numeric(start), y = 0, xend = as.numeric(end), yend = 0), 
+                                     data = motifs, size = 5, col = ifelse(motifs$motif=="CACGTG", "red","blue"))
+  }()
+}
+
+```
+
+#### Add the motifs!
+- Red: "CACGTG" (Pho4 consensus motif)
+- Blue: one-bp off motifs
+
+```{r}
+Promoter_motif_ggplot_NoPi()
+```
+```{r}
+Promoter_motif_ggplot_NoPi()
+```
+
+## PHO5 example in High Pi 
+
+# Conclusion
+Wow
+# Acknowledgement
+
+**I would like to thank my PI, Dr. Bin He, for his valuable guidance throughout this project. You provided me with the tools that I needed to choose the right direction and successfully made a progress.**
+
