@@ -19,7 +19,8 @@ To understand how promoter architecture influences transcription, here is a publ
 Lam, F., Steger, D. & O’Shea, E. Chromatin decouples promoter threshold from dynamic range. Nature 453, 246–250 (2008). [https://doi.org/10.1038/nature06867](https://doi.org/10.1038/nature06867)
 
 ## Expected Figure (Conceptually)
-The expected figure would be similar to this. However, the original data associated to this figure is not avaible online, so I choose different datasets from other papers (see Methods section).
+The expected figure would be similar to this. However, the original data associated to this figure is not avaible online, so I choose different datasets from other papers (see Methods section).\
+
 ![](https://raw.githubusercontent.com/binhe-lab/C016-Pho4-binding-difference/master/docs/images/Lam_et_al_2008_fig_2a.png)
 
 **Figure 2. Nucleosome occupancy at the _PHO5_ promoter under 10mM Pi: High Pi/repressed condition.** X axis is genomic coordinates of *S. cerevisiae PHO5* with respect to translation start (ATG = 1). Red triangles stand for high affinity motifs CACGTG, while blue circles represent low affinity motifs, which are 1-bp off motifs (i.e. CACGTT). Solid colors (blue and red) indicate that the motif sequences are conserved in closely related species, while sesmi-transparent colors indicate non-conserved motifs. The Y axis measures nucleosome occupancy with normalized qPCR* fold changes. Higher Y values correspond to higher nucleosome occupancy. Notice that the non-consensus motif (blue circle at -400) has a low nucleosome occupancy while the consensus (red triangle at -250) site is nucleosome occluded.\
