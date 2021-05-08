@@ -27,7 +27,7 @@ use .gitignore to ignore this file because it is over 10 Mb
 - sacCer2.2bit
 - sacCer3.2bit
   + Genome version: sacCer1 (or Oct. 2003 in the Saccharomyces Genome 
-Database or SGD (http://www.yeastgenome.org/)). Downloaded [URL](http://hgdownload.soe.ucsc.edu/goldenPath/sacCer1/bigZips/)
+Database or SGD. Downloaded [URL](http://hgdownload.soe.ucsc.edu/goldenPath/sacCer1/bigZips/)
   + Genome version: sacCer2 (based on June 2008 in SGD). Downloaded [URL](http://hgdownload.soe.ucsc.edu/goldenPath/sacCer2/bigZips/)
   + Genome version: sacCer3 (based on April 2011 in SGD). Downloaded [URL](http://hgdownload.soe.ucsc.edu/goldenPath/sacCer3/bigZips/)
 ## Gene Annotations: GCF_000146045.2_R64_genomic.gff.gz
