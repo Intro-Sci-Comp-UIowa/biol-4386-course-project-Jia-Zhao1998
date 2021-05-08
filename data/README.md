@@ -17,12 +17,12 @@ use .gitignore to ignore this file because it is over 10 Mb
 - Strain: SKI (derived from S288C)
 - Purpose: Nucleosome occupancy data of WT No Pi from [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM1849297) in bw (BigWig) format. Data processing	Demultiplexing was accomplished using bcl2fastq. Alignment: bowtie v0.12.7, command-line parameters -m 1 --best. Track generation: MNase-seq BED files were rendered as bedGraphs using the BEDtools genomeCoverageBed utility; these were then RPM-adjusted. Resulting bedGraphs were converted to tracks using UCSC Genome Browser's bedGraphToBigWig utility. Genome_build: sacCer2. Supplementary_files_format_and_content: BigWigs are per-base pair track visualizations of the MNase-seq data after RPM adjustment.## Genomic Sequence: GCF_000146045.2_R64_genomic.fna.gz. 
 - I used bigWigtoWig package in terminal to convert the bigWig format to Wig format and store it in the local server. Size is ~90Mb: too big to upload to github
-## (Old) Genomic Sequence: GCF_000146045.2_R64_genomic.fna.gz
+## (Not used) Genomic Sequence: GCF_000146045.2_R64_genomic.fna.gz
 - Source: NCBI
 - Strain: S288C
 - Purpose: Genome sequence, R64, SacCer3. [Link](https://www.ncbi.nlm.nih.gov/genome/15) to the sequences. 
 - I plan to use wget to download all sequences in terminal, and use the sequence information to show the position of Pho4's binding sites and binding motifs. 
-## (Actual used) Genomic Sequence from UCSC 
+## (Actually used) Genomic Sequence from UCSC 
 - sacCer1.2bit
 - sacCer2.2bit
 - sacCer3.2bit
@@ -30,11 +30,15 @@ use .gitignore to ignore this file because it is over 10 Mb
 Database or SGD. Downloaded [URL](http://hgdownload.soe.ucsc.edu/goldenPath/sacCer1/bigZips/)
   + Genome version: sacCer2 (based on June 2008 in SGD). Downloaded [URL](http://hgdownload.soe.ucsc.edu/goldenPath/sacCer2/bigZips/)
   + Genome version: sacCer3 (based on April 2011 in SGD). Downloaded [URL](http://hgdownload.soe.ucsc.edu/goldenPath/sacCer3/bigZips/)
-## Gene Annotations: GCF_000146045.2_R64_genomic.gff.gz
+## (Not used)Gene Annotations: GCF_000146045.2_R64_genomic.gff.gz
 - Source: NCBI
 - Strain: S288C
 - Purpose: Genome sequence annotation, R64, SacCer3. Same link above
 - I plan to use the gene annotation to correctly label the gene names of Pho4 targets
+## (Actually used) Gene Annotation
+- sgdGene.txt: for sacCer1
+- sacCer2.txt: for sacCer2
+- sacCer3.txt: for sacCer3
 ---
 ## (Proposed in HW2. Not used for real data analysis) WT in normal/high Pi Nucleosome occupancy data: GSM4193057_WT1_xl_MNase.bedgraph.gz
 - Source: [Oberbeckmann et al, 2019](https://pubmed.ncbi.nlm.nih.gov/31694866/)
